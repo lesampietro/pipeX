@@ -6,13 +6,11 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/05/31 17:47:59 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/05/31 17:56:12 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipex.h"
-
-// Tentar executar os argumentos/linha de comando com execve
 
 void	check_args(int argc)
 {
