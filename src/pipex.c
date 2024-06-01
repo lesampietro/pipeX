@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/01 18:59:52 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/01 19:22:51 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_args(int argc)
 	}
 }
 
-char	*check_cmd(char **argv, char **envp)
+void	check_cmd(int argc, char **argv, char **envp)
 {
 	int		i;
 	int		j;
@@ -36,23 +36,21 @@ char	*check_cmd(char **argv, char **envp)
 	char	*cmd;
 
 	i = 0;
-	j = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
 	path = ft_strchr(envp[i], '=');
 	paths = ft_split(path, ':');
-	cmd = ft_strjoin(paths[j], *argv);
-	while (1)
+	j = 0;
+	while (paths[j] != NULL)
 	{
 		cmd = ft_strjoin(paths[j], *argv);
 		if (access (cmd, X_OK) == 0)
 		{	
-			execve(cmd, argv, envp);
+			execve(cmd, &argv[argc], &envp[i]);
 			break;
 		}
 		j++;
 	}
-	return(cmd);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -66,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 		perror("Error: Invalid input file\n");
 		exit(1);
 	}
-	check_cmd(&argv[2], envp);
+	check_cmd(2, argv, envp);
 	// while(*envp)
 	// {
 	// 	ft_printf("%s\n", *envp);
