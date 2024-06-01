@@ -1,37 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.c                                            :+:      :+:    :+:   */
+/*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/05/31 17:56:12 by lsampiet         ###   ########.fr       */
+/*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
+/*   Updated: 2024/05/31 19:24:53 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex.h"
+#ifndef PIPEX_H
+# define PIPEX_H
 
-void	check_args(int argc)
-{
-	if (argc != 5)
-	{
-		perror("Error: Wrong number of arguments\n");
-		exit(1);
-	}
-}
+# include "../libs/libft/libft.h"
+# include "../libs/ft_printf/includes/ft_printf.h"
+# include "../libs/gnl/includes/get_next_line.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include <stdlib.h>
+# include <stdio.h>
+# include <time.h>
+# include <sys/wait.h>
 
-void	main(int argc, char **argv)
-{
-	int	fd1;
-	
-	check_args(argc);
-	fd1 = open(argv[1], O_RDONLY);
-	if (fd1 == -1)
-	{
-		perror("Error: Invalid input file\n");
-		exit(1);
-	}
-	
-	
-}
+
+
+
+#endif
