@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/05/31 19:24:53 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:24:20 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,18 @@
 # include <time.h>
 # include <sys/wait.h>
 
+typedef struct	s_pipex t_pipex;
+typedef struct	s_pid t_pid;
 
+struct s_pipex
+{
+	int	fd_in;
+	int	fd_out;
+};
 
+struct s_pid
+{
+	int	pid;
+};
 
 #endif

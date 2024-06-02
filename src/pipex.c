@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/01 19:22:51 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/02 18:51:03 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_args(int argc)
 	}
 }
 
-void	check_cmd(int argc, char **argv, char **envp)
+void	check_cmd(int argc, char **argv, char **envp, t_pipex data)
 {
 	int		i;
 	int		j;
@@ -38,41 +38,40 @@ void	check_cmd(int argc, char **argv, char **envp)
 	i = 0;
 	while (ft_strncmp(envp[i], "PATH=", 5) != 0)
 		i++;
-	path = ft_strchr(envp[i], '=');
+	path = ft_strchr(envp[i], '=') + 1;
 	paths = ft_split(path, ':');
 	j = 0;
-	while (paths[j] != NULL)
+	while (paths[j])
 	{
-		cmd = ft_strjoin(paths[j], *argv);
-		if (access (cmd, X_OK) == 0)
+		paths[j] = ft_strjoin(paths[j], "/");
+		cmd = ft_strjoin(paths[j], argv[argc]);
+		if (access (cmd, X_OK | F_OK) == 0)
 		{	
-			execve(cmd, &argv[argc], &envp[i]);
-			break;
+			// execve(cmd, argv, data.fd_in);
+			ft_printf("Command: %s\n", cmd);
+			return ;
 		}
 		j++;
 	}
+	perror("Error: Invalid command\n");
+	exit(1);
+	(void)data;
 }
 
 int	main(int argc, char **argv, char **envp)
 {
-	int	fd1;
-	
+	// int		fd[2];
+	t_pid	pid;
+	t_pipex	data;
+
 	check_args(argc);
-	fd1 = open(argv[1], O_RDONLY);
-	if (fd1 == -1)
+	data.fd_in = open(argv[1], O_RDONLY);
+	if (data.fd_in == -1)
 	{
 		perror("Error: Invalid input file\n");
 		exit(1);
 	}
-	check_cmd(2, argv, envp);
-	// while(*envp)
-	// {
-	// 	ft_printf("%s\n", *envp);
-	// 	envp++;
-	// }
-
-	
-	// if (access("/usr/bin/ls", X_OK) == 0)
-
-	close(fd1);
+	check_cmd(2, argv, envp, data);
+	close(data.fd_in);
+	(void)pid;
 }
