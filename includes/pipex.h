@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/02 18:24:20 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/02 19:01:59 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ struct s_pipex
 {
 	int	fd_in;
 	int	fd_out;
+	int	pid;
 };
 
 struct s_pid
