@@ -6,7 +6,7 @@
 #    By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 19:48:44 by lsampiet          #+#    #+#              #
-#    Updated: 2024/05/31 19:23:29 by lsampiet         ###   ########.fr        #
+#    Updated: 2024/06/05 13:25:37 by lsampiet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ HEADER_M= ./includes/pipex.h
 
 LIBS= $(LIBFT)/libft.a
 SRC= pipex.c \
+	 utils.c \
 
 SRC:= $(addprefix $(SRC_D),$(SRC))
 # BONUS:= $(addprefix $(SRC_B),$(BONUS))
