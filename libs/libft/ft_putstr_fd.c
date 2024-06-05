@@ -6,21 +6,26 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/20 04:38:45 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/03/23 19:22:51 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:56:12 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putstr_fd(char *s, int fd)
+int ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (s[i])
+	if (!s)
+		i = write(1, "(null)", 6);
+	else
 	{
-		ft_putchar_fd(s[i], fd);
-		i++;
+		while (s[i])
+		{
+			ft_putchar_fd(s[i], fd);
+			i++;
+		}
 	}
 	return (i);
 }

@@ -6,13 +6,13 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:24:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/05 13:24:34 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:18:43 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-// RESOLVER LEAKS
+// RESOLVER LEAKS NA SPLIT!!!!!!!!!!!
 char	*check_cmd(char *argv, char **envp)
 {
 	int		i;
@@ -39,4 +39,10 @@ char	*check_cmd(char *argv, char **envp)
 		free(paths[i--]);
 	free(paths);
 	return (0);
+}
+
+void	error(void)
+{
+	perror("\033[31mError");
+	exit(EXIT_FAILURE);
 }

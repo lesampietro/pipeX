@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/05 13:24:54 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:33:34 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@
 # include <sys/wait.h>
 
 typedef struct	s_pipex t_pipex;
-typedef struct	s_pid t_pid;
 
 struct s_pipex
 {
@@ -33,11 +32,7 @@ struct s_pipex
 	int	pid;
 };
 
-struct s_pid
-{
-	int	pid;
-};
-
 char	*check_cmd(char *argv, char **envp);
+void	error(void);
 
 #endif

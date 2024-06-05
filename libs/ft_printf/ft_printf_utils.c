@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:31:57 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/05/12 06:46:56 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:57:18 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,6 @@
 int	ft_putchar_fd(char c, int fd)
 {
 	return (write(fd, &c, 1));
-}
-
-int	ft_putstr_fd(char *s, int fd)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		i = write(1, "(null)", 6);
-	else
-	{
-		while (s[i])
-		{
-			ft_putchar_fd(s[i], fd);
-			i++;
-		}
-	}
-	return (i);
 }
 
 int	ft_count_digits_pf(int n)

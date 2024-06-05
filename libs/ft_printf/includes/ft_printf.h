@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 20:32:35 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/05/12 06:47:24 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 15:57:41 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdarg.h>
+# include "../../libft/libft.h"
 
 int		ft_printf(const char *format_str, ...);
 int		print_format_str(char specifier, va_list ap);
