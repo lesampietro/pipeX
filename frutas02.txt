@@ -1,15 +1,5 @@
-cmd: grep
-cmd_path: /usr/bin/grep
-cmd_path: /usr/bin/sort
-Abacate
-Abacaxi
-Banana
-Cereja
-Laranja
 Maçã
 Mamão
 Manga
 Melancia
 Morango
-Pera
-Uva
