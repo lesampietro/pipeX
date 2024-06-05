@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/05 15:33:34 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:42:10 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ struct s_pipex
 	int	pid;
 };
 
-char	*check_cmd(char *argv, char **envp);
+char	*check_cmd(char **argv, char **envp);
 void	error(void);
 
 #endif

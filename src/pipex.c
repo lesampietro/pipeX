@@ -6,18 +6,20 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/05 16:07:44 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:46:33 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	execute(char **argv, char **envp)
+void	execute(int argc, char **argv, char **envp)
 {
-	char *cmd;
+	char **cmd;
+	char *cmd_path;
 	
-	cmd = check_cmd(*argv, envp);
-	if (execve(cmd, argv, envp) == -1)
+	cmd = ft_split(argv[argc], ' ');
+	cmd_path = check_cmd(cmd, envp);
+	if (execve(cmd_path, cmd, envp) == -1)
 		error();
 }
 
@@ -32,7 +34,7 @@ void	child_process(char **argv, char **envp, t_pipex	*data, int *fd)
 	// close(fd[1]);
 	// close(data->fd_in);
 	// close(data->fd_out);
-	execute(&argv[2], envp);
+	execute(2, argv, envp);
 }
 
 void	parent_process(char **argv, char **envp, t_pipex *data, int *fd)
@@ -46,7 +48,7 @@ void	parent_process(char **argv, char **envp, t_pipex *data, int *fd)
 	close(fd[1]);
 	// close(data->fd_in);
 	// close(data->fd_out);
-	execute(&argv[3], envp);
+	execute(3, argv, envp);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -69,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 	else
 	{
 		ft_putstr_fd("\033[31mError: Bad usage\n", 2);
-		ft_putstr_fd("Ex: ./pipex file01 cmd01 cmd02 file02\n", 2);
+		ft_putstr_fd("Expected: ./pipex <filein> <cmd01> <cmd02> <fileout>\n", 2);
 		exit(EXIT_FAILURE);
 	}
 	return (0);

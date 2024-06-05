@@ -6,14 +6,14 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:24:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/05 15:18:43 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/05 18:40:57 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
 // RESOLVER LEAKS NA SPLIT!!!!!!!!!!!
-char	*check_cmd(char *argv, char **envp)
+char	*check_cmd(char **argv, char **envp)
 {
 	int		i;
 	char	*path;
@@ -28,7 +28,7 @@ char	*check_cmd(char *argv, char **envp)
 	while (paths[i])
 	{
 		path = ft_strjoin(paths[i], "/");
-		cmd = ft_strjoin(path, argv);
+		cmd = ft_strjoin(path, argv[0]);
 		free(path);
 		if (access (cmd, X_OK | F_OK) == 0)
 			return (cmd);
