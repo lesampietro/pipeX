@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/05 19:31:07 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/09 20:24:15 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,20 @@
 # include <time.h>
 # include <sys/wait.h>
 
+# define ERRO
+
 typedef struct s_pipex	t_pipex;
 
 struct s_pipex
 {
 	int	fd_in;
 	int	fd_out;
-	int	pid;
+	int	pid[2];
 };
 
 char	*check_cmd(char **argv, char **envp);
-void	error(void);
+char	*create_path(char **argv, char **envp);
+void	check_permissions(char *cmd);
+void	error(int status);
 
 #endif

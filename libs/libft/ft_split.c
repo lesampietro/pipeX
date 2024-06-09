@@ -6,11 +6,12 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/06 17:11:55 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/05 13:56:16 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/09 16:18:59 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <stdio.h>
 
 int	ft_count_words(const char *s, char c)
 {
@@ -36,21 +37,21 @@ int	ft_count_words(const char *s, char c)
 	return (words);
 }
 
-void	ft_free_array(char **new)
+void	ft_free_array(char **new, int arr_size)
 {
-	int	x;
+	int	i;
 
-	x = 0;
-	while (new[x])
+	i = 0;
+	while (i < arr_size)
 	{
-		free (new[x]);
-		new[x] = NULL;
-		x++;
+		free (new[i]);
+		new[i] = NULL;
+		i++;
 	}
 	free (new);
 }
 
-void	ft_make_array(char const *s, char c, char **new)
+void	ft_make_array(char const *s, char c, char **new, int arr_size)
 {
 	int	i;
 	int	x;
@@ -70,7 +71,7 @@ void	ft_make_array(char const *s, char c, char **new)
 			new[++x] = ft_substr(s, start, (i - start));
 		if (!new[x])
 		{
-			ft_free_array(new);
+			ft_free_array(new, arr_size);
 			return ;
 		}
 	}
@@ -83,8 +84,10 @@ char	**ft_split(char const *s, char c)
 	char	**new;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	wrd_count = ft_count_words(s, c);
-	new = (char **) malloc ((wrd_count + 1) * (sizeof(char *)));
+	new = (char **) malloc ((wrd_count + 1) * sizeof(char *));
 	if (!new)
 		return (NULL);
 	if (!wrd_count)
@@ -92,7 +95,7 @@ char	**ft_split(char const *s, char c)
 		new[0] = NULL;
 		return (new);
 	}
-	ft_make_array(s, c, new);
+	ft_make_array(s, c, new, wrd_count);
 	new[wrd_count] = NULL;
 	return (new);
 }
