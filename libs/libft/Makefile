@@ -6,7 +6,7 @@
 #    By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/19 21:58:01 by lsampiet          #+#    #+#              #
-#    Updated: 2024/03/27 21:38:33 by lsampiet         ###   ########.fr        #
+#    Updated: 2024/06/10 00:16:13 by lsampiet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,7 @@ C_BONUS= ft_lstnew_bonus.c \
 				 ft_lstiter_bonus.c \
 				 ft_lstmap_bonus.c
 
-C_NEW= ../gnl/get_next_line.c \
-				 ../gnl/get_next_line_utils.c \
-				 ../ft_printf/ft_printf.c \
+C_NEW= ../ft_printf/ft_printf.c \
 				 ../ft_printf/ft_printf_utils.c \
 				 ../ft_printf/ft_printf_utils02.c \
 
@@ -79,13 +77,10 @@ C_FLAGS= -Wall -Werror -Wextra
 $(NAME): $(C_OBJ)
 
 all: $(NAME)
-	@echo "LIBFT has been compiled 😇"
 
 bonus: $(BONUS_OBJ)
-	@echo "BONUS has been compiled 😁"
 
 new: $(NEW_OBJ)
-	@echo "NEW FUNCTIONS have been compiled 😍"
 
 %.o: %.c
 	@echo "Compiling $(notdir $<) ..."
@@ -95,14 +90,12 @@ new: $(NEW_OBJ)
 clean:
 	@echo "Removing LIBFT objects..."
 	rm -f $(C_OBJ) $(BONUS_OBJ)
-	@echo "Removing GNL & PRINTF objects..."
+	@echo "Removing PRINTF objects..."
 	rm -f $(NEW_OBJ)
-	@echo "All done!👍"
 
 fclean: clean
 	@echo "Removing $(NAME)..."
 	rm -f $(NAME)
-	@echo "All done!👍"
 
 re: fclean all
 

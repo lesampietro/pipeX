@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/09 22:58:09 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 00:12:19 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include "../libs/libft/libft.h"
 # include "../libs/ft_printf/includes/ft_printf.h"
-# include "../libs/gnl/includes/get_next_line.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>

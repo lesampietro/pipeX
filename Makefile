@@ -6,7 +6,7 @@
 #    By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/16 19:48:44 by lsampiet          #+#    #+#              #
-#    Updated: 2024/06/09 23:33:50 by lsampiet         ###   ########.fr        #
+#    Updated: 2024/06/10 00:18:01 by lsampiet         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,8 +46,6 @@ clean:
 	echo "Cleaning objects..."
 	rm -rf $(BIN)
 	make fclean -C $(LIBFT) --no-print-directory
-	echo "Cleaning build..."
-	echo "All done!✨"
 
 fclean: clean
 	echo "Cleaning executables..."
@@ -56,6 +54,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all, clean, fclean, re, libmlx, libft, bonus
+.PHONY: all, clean, fclean, re, libft
 
 .SILENT:
