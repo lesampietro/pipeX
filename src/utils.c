@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:24:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/09 23:01:38 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 00:01:00 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	check_permissions(char *cmd)
 {
 	if (access(cmd, X_OK) == -1)
 	{
-		ft_putstr_fd("\033[31mError: Permission denied\n", 2);
+		ft_putstr_fd("\033[31mError: Permission denied\033[37m\n", 2);
 		free(cmd);
 		exit(126);
 	}
@@ -24,7 +24,7 @@ void	check_permissions(char *cmd)
 
 void	free_paths(char **paths)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (paths[i] != NULL)
@@ -52,6 +52,7 @@ char	*create_path(char **argv, char **envp)
 		if (access(cmd, F_OK) == 0)
 		{
 			free_paths(paths);
+			check_permissions(cmd);
 			return (cmd);
 		}
 		free(cmd);
@@ -61,28 +62,23 @@ char	*create_path(char **argv, char **envp)
 	return (NULL);
 }
 
-char *check_cmd(char **argv, char **envp)
+char	*check_cmd(char **argv, char **envp)
 {
-	char *cmd;
+	char	*cmd;
 
 	cmd = NULL;
 	if (access(argv[0], F_OK) == 0)
 	{
-		cmd = ft_strdup(argv[0]);
-		check_permissions(cmd);
+		check_permissions(argv[0]);
 		return (cmd);
 	}
 	else
-	{
 		cmd = create_path(argv, envp);
-		if (access(cmd, F_OK) == 0)
-			check_permissions(cmd);
-	}
 	return (cmd);
 }
 
 void	error(int status)
 {
-	perror("\033[31mError");
+	perror("\033[31mError\033[37m");
 	exit(status);
 }

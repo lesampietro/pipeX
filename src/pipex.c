@@ -6,14 +6,13 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/09 22:57:48 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 00:00:47 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
 // RESOLVER LEAKS NA SPLIT!!!!!!!!!!!
-// RELINK MAKEFILE!!!!!!!
 void	execute(int argc, char **argv, char **envp)
 {
 	char	*cmd;
@@ -23,7 +22,7 @@ void	execute(int argc, char **argv, char **envp)
 	cmd = check_cmd(cmd_paths, envp);
 	if (cmd == NULL)
 	{
-		ft_putstr_fd("\033[31mError: Command not found\n", 2);
+		ft_putstr_fd("\033[31mError: Command not found\033[37m\n", 2);
 		free(cmd);
 		free_paths(cmd_paths);
 		exit(127);
@@ -76,7 +75,7 @@ int	create_pipex(char **argv, char **envp, t_pipex *data)
 		brother_process(argv, envp, data, fd);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(data->pid[0], NULL, 0);
+	waitpid(data->pid[0], &status, 0);
 	waitpid(data->pid[1], &status, 0);
 	status = (status >> 8) & 0xff;
 	return (status);
@@ -93,6 +92,10 @@ int	main(int argc, char **argv, char **envp)
 		return (status);
 	}
 	else
-		error(1);
+	{
+		ft_putstr_fd("\033[31mError: Bad usage.\n", 2);
+		ft_putstr_fd("Expected: ./pipex infile cmd01 cmd02 outfile\033[37m\n", 2);
+		exit(1);
+	}
 	return (0);
 }
