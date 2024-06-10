@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 13:55:45 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:08:47 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,7 @@ void	brother_process(char **argv, char **envp, t_pipex *data, int *fd)
 {
 	data->fd_out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (data->fd_out == -1)
-	{
-		close(fd[0]);
-		close(fd[1]);
 		error(1);
-	}
 	dup2(fd[0], STDIN_FILENO);
 	dup2(data->fd_out, STDOUT_FILENO);
 	close(fd[0]);

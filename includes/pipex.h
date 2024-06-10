@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 13:52:06 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 14:13:55 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ struct s_pipex
 
 char	*check_cmd(char **argv, char **envp);
 char	*create_path(char **argv, char **envp);
-void	check_permissions(char *cmd);
+void	check_permissions(char *cmd, char **cmd_paths);
 void	error(int status);
 void	free_paths(char **paths);
 
