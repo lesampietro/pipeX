@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 15:29:30 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:36:35 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	brother_process(char **argv, char **envp, t_pipex *data, int *fd)
 	data->fd_out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (data->fd_out == -1)
 	{
+		ft_putstr_fd("\033[31mError: Invalid output file\033[37m\n", 2);
 		close(fd[0]);
 		close(fd[1]);
 		close_fds();
