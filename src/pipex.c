@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/09 20:17:56 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/09 22:57:48 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,21 @@
 
 // RESOLVER LEAKS NA SPLIT!!!!!!!!!!!
 // RELINK MAKEFILE!!!!!!!
-// 
-
 void	execute(int argc, char **argv, char **envp)
 {
-	char	**cmd;
-	char	*cmd_path;
+	char	*cmd;
+	char	**cmd_paths;
 
-	cmd = ft_split(argv[argc], ' ');
-	cmd_path = check_cmd(cmd, envp);
-	if (cmd_path == NULL)
+	cmd_paths = ft_split(argv[argc], ' ');
+	cmd = check_cmd(cmd_paths, envp);
+	if (cmd == NULL)
 	{
 		ft_putstr_fd("\033[31mError: Command not found\n", 2);
+		free(cmd);
+		free_paths(cmd_paths);
 		exit(127);
 	}
-	if (execve(cmd_path, cmd, envp) == -1)
+	if (execve(cmd, cmd_paths, envp) == -1)
 		error(1);
 }
 
@@ -58,32 +58,41 @@ void	brother_process(char **argv, char **envp, t_pipex *data, int *fd)
 	execute(3, argv, envp);
 }
 
+int	create_pipex(char **argv, char **envp, t_pipex *data)
+{
+	int	fd[2];
+	int	status;
+
+	status = 0;
+	if (pipe(fd) == -1)
+		error(1);
+	data->pid[0] = fork();
+	if (data->pid[0] == -1)
+		error(1);
+	if (data->pid[0] == 0)
+		child_process(argv, envp, data, fd);
+	data->pid[1] = fork();
+	if (data->pid[1] == 0)
+		brother_process(argv, envp, data, fd);
+	close(fd[0]);
+	close(fd[1]);
+	waitpid(data->pid[0], NULL, 0);
+	waitpid(data->pid[1], &status, 0);
+	status = (status >> 8) & 0xff;
+	return (status);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
-	int				fd[2];
 	static t_pipex	data;
 	int				status;
 
-	status = 0;
 	if (argc == 5)
 	{
-		if (pipe(fd) == -1)
-			error(1);
-		data.pid[0] = fork();
-		if (data.pid[0] == -1)
-			error(1);
-		if (data.pid[0] == 0)
-			child_process(argv, envp, &data, fd);
-		data.pid[1] = fork();
-		if (data.pid[1] == 0)
-			brother_process(argv, envp, &data, fd);
-		close(fd[0]);
-		close(fd[1]);
-		waitpid(data.pid[0], NULL, 0);
-		waitpid(data.pid[1], &status, 0);
+		status = create_pipex(argv, envp, &data);
+		return (status);
 	}
 	else
 		error(1);
-	status = (status >> 8) & 0xff;
-	return (status);
+	return (0);
 }

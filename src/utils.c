@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:24:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/09 20:28:51 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/09 23:01:38 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,20 @@ void	check_permissions(char *cmd)
 	if (access(cmd, X_OK) == -1)
 	{
 		ft_putstr_fd("\033[31mError: Permission denied\n", 2);
+		free(cmd);
 		exit(126);
 	}
 }
 
+void	free_paths(char **paths)
+{
+	int i;
+
+	i = 0;
+	while (paths[i] != NULL)
+		free(paths[i++]);
+	free(paths);
+}
 
 char	*create_path(char **argv, char **envp)
 {
@@ -40,13 +50,14 @@ char	*create_path(char **argv, char **envp)
 		cmd = ft_strjoin(path, argv[0]);
 		free(path);
 		if (access(cmd, F_OK) == 0)
+		{
+			free_paths(paths);
 			return (cmd);
+		}
 		free(cmd);
 		i++;
 	}
-	while (paths[i])
-		free(paths[i--]);
-	free(paths);
+	free_paths(paths);
 	return (NULL);
 }
 
@@ -55,7 +66,6 @@ char *check_cmd(char **argv, char **envp)
 	char *cmd;
 
 	cmd = NULL;
-	
 	if (access(argv[0], F_OK) == 0)
 	{
 		cmd = ft_strdup(argv[0]);

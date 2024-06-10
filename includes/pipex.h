@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:06 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/09 20:24:15 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/09 22:58:09 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ char	*check_cmd(char **argv, char **envp);
 char	*create_path(char **argv, char **envp);
 void	check_permissions(char *cmd);
 void	error(int status);
+void	free_paths(char **paths);
 
 #endif
