@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 14:08:47 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 15:29:30 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	execute(int argc, char **argv, char **envp)
 		ft_putstr_fd("\033[31mError: Command not found\033[37m\n", 2);
 		free(cmd);
 		free_paths(cmd_paths);
+		close_fds();
 		exit(127);
 	}
 	if (execve(cmd, cmd_paths, envp) == -1)
@@ -35,8 +36,10 @@ void	child_process(char **argv, char **envp, t_pipex	*data, int *fd)
 	data->fd_in = open(argv[1], O_RDONLY, 0777);
 	if (data->fd_in == -1)
 	{
+		ft_putstr_fd("\033[31mError: Invalid input file\033[37m\n", 2);
 		close(fd[0]);
 		close(fd[1]);
+		close_fds();
 		error(1);
 	}
 	dup2(fd[1], STDOUT_FILENO);
@@ -51,7 +54,12 @@ void	brother_process(char **argv, char **envp, t_pipex *data, int *fd)
 {
 	data->fd_out = open(argv[4], O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	if (data->fd_out == -1)
+	{
+		close(fd[0]);
+		close(fd[1]);
+		close_fds();
 		error(1);
+	}
 	dup2(fd[0], STDIN_FILENO);
 	dup2(data->fd_out, STDOUT_FILENO);
 	close(fd[0]);
@@ -62,10 +70,9 @@ void	brother_process(char **argv, char **envp, t_pipex *data, int *fd)
 
 int	create_pipex(char **argv, char **envp, t_pipex *data)
 {
-	int	fd[2];
-	int	status;
-
-	status = 0;
+	int		fd[2];
+	
+	data->status = 0;
 	if (pipe(fd) == -1)
 		error(1);
 	data->pid[0] = fork();
@@ -78,21 +85,20 @@ int	create_pipex(char **argv, char **envp, t_pipex *data)
 		brother_process(argv, envp, data, fd);
 	close(fd[0]);
 	close(fd[1]);
-	waitpid(data->pid[0], &status, 0);
-	waitpid(data->pid[1], &status, 0);
-	status = (status >> 8) & 0xff;
-	return (status);
+	waitpid(data->pid[0], &data->status, 0);
+	waitpid(data->pid[1], &data->status, 0);
+	data->status = (data->status >> 8) & 0xff;
+	return (data->status);
 }
 
 int	main(int argc, char **argv, char **envp)
 {
 	static t_pipex	data;
-	int				status;
-
+	
 	if (argc == 5)
 	{
-		status = create_pipex(argv, envp, &data);
-		return (status);
+		data.status = create_pipex(argv, envp, &data);
+		return (data.status);
 	}
 	else
 	{
