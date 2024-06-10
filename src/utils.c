@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:24:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 00:01:00 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 13:31:49 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	check_permissions(char *cmd)
 	{
 		ft_putstr_fd("\033[31mError: Permission denied\033[37m\n", 2);
 		free(cmd);
+		// free_paths(cmd_paths); // trazer o arg até aqui
 		exit(126);
 	}
 }
