@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:24:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 15:13:29 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:36:36 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	error(int status)
 	exit(status);
 }
 
-void free_paths(char **paths)
+void	free_paths(char **paths)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (paths[i] != NULL)

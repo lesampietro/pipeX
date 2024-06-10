@@ -6,7 +6,7 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:48:16 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 15:36:35 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:35:21 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	brother_process(char **argv, char **envp, t_pipex *data, int *fd)
 int	create_pipex(char **argv, char **envp, t_pipex *data)
 {
 	int		fd[2];
-	
+
 	data->status = 0;
 	if (pipe(fd) == -1)
 		error(1);
@@ -95,7 +95,7 @@ int	create_pipex(char **argv, char **envp, t_pipex *data)
 int	main(int argc, char **argv, char **envp)
 {
 	static t_pipex	data;
-	
+
 	if (argc == 5)
 	{
 		data.status = create_pipex(argv, envp, &data);

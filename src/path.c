@@ -6,13 +6,13 @@
 /*   By: lsampiet <lsampiet@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 14:48:18 by lsampiet          #+#    #+#             */
-/*   Updated: 2024/06/10 15:18:09 by lsampiet         ###   ########.fr       */
+/*   Updated: 2024/06/10 17:37:39 by lsampiet         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void check_permissions(char *cmd, char **cmd_paths)
+void	check_permissions(char *cmd, char **cmd_paths)
 {
 	if (access(cmd, X_OK) == -1)
 	{
@@ -24,11 +24,11 @@ void check_permissions(char *cmd, char **cmd_paths)
 	}
 }
 
-char *create_path(char *cmd, char **cmd_paths, char **envp)
+char	*create_path(char *cmd, char **cmd_paths, char **envp)
 {
-	char *path;
-	char **paths;
-	int i;
+	char	*path;
+	char	**paths;
+	int		i;
 
 	i = 0;
 	while (envp[i] && ft_strnstr(envp[i], "PATH=", 5) == 0)
@@ -53,9 +53,9 @@ char *create_path(char *cmd, char **cmd_paths, char **envp)
 	return (NULL);
 }
 
-char *check_cmd(char **cmd_paths, char **envp)
+char	*check_cmd(char **cmd_paths, char **envp)
 {
-	char *cmd;
+	char	*cmd;
 
 	cmd = NULL;
 	if (access(cmd_paths[0], F_OK) == 0)
